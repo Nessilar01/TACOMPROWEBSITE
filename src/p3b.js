@@ -185,7 +185,7 @@ function shoot(c,id,t,x,y,d=.8){c.to(id,'x',t,t+d,x);c.to(id,'y',t,t+d,y);c.to(i
 function manualProps(c){
   c.add('ball1','ball',{x:B1[0],y:B1[1],c:'y'});c.add('ball2','ball',{x:B2[0],y:B2[1],c:'g'});c.add('ball3','ball',{x:B3[0],y:B3[1],c:'y'});
   PINS.forEach((p,i)=>c.add('pin'+i,'pin',{x:p[0],y:p[1],c:'b'}));
-  c.add('flag','flag',{x:F1[0],y:F1[1],r:-90});
+  c.add('flag','flag',{x:F1[0],y:F1[1],r:90});
   c.add('goal','shape',{x:GOAL[0]+4,y:GOAL[1],w:100,h:345,shape:'rect',fill:'rgba(33,105,201,.25)',stroke:'#7fb2ff',sw:3,dash:'10 6',o:0,pulse:true});
   lbl(c,'lGoal','Opposing goalpost + target pins',470,460,{tone:'info',tx:GOAL[0]-10,ty:640});
   lbl(c,'lFlag','Reverse Flag (central platform)',520,560,{tone:'dark',tx:F1[0]+18,ty:F1[1]});
@@ -222,7 +222,7 @@ function manualTasks(c,t0,clock=true){
   c.score(t2+.8,'greenBall');
   c.hide('ball2',t2+1.6,.3);
   const tC=Math.max(e,t2+2);
-  e=narr(c,tC,'Task C: throw a ball at the Reversed Flag and turn its tip toward the blue side. A flag only counts when a thrown ball turns it.');
+  e=narr(c,tC,'Task C: throw a ball at the Reversed Flag and turn its tip toward your own red side. Only a tip that points at your own side counts.');
   const m3=c.move('man',[[300,588]],tC,220,{turn:.2,face:90});
   c.to('man','ext',m3,m3+.7,.45);c.to('man','ext',m3+.8,m3+1.5,.15);
   const m4=c.move('man',[[300,600]],m3+1.6,200,{turn:.1,face:90});
@@ -230,8 +230,8 @@ function manualTasks(c,t0,clock=true){
   c.vis('lFlag',m4,m4+3.4);
   const t3=m4+.2;
   shoot(c,'ball3',t3,F1[0]-6,F1[1]+4,.6);
-  flipFlag(c,'flag',t3+.6,'B');
-  c.ban(t3+.6,t3+2.4,'FLAG TURNS TO BLUE ✓','ok');
+  flipFlag(c,'flag',t3+.6,'R');
+  c.ban(t3+.6,t3+2.4,'FLAG TURNS TO RED ✓','ok');
   c.score(t3+.7,'flag');
   const tEnd=Math.max(e,t3+2.8);
   c.cap(Math.min(e,t3+.2),tEnd,'Every completed task adds points to the scoreboard.');
