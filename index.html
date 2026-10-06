@@ -45,6 +45,7 @@ details.tool summary{cursor:pointer;font:700 15px var(--f-display);list-style-po
 .stbl{width:100%;border-collapse:collapse;margin-top:8px;font-size:13.5px}
 .stbl td{padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
 .stbl td:last-child{text-align:right;white-space:nowrap}
+.stbl .sval{font:600 14px var(--f-mono);color:var(--fg)}
 .stbl input{width:62px;text-align:right;font:600 13px var(--f-mono);padding:3px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
 .stag{font:600 10px var(--f-mono);letter-spacing:.04em;padding:1px 6px;border-radius:99px;margin-left:6px;color:#fff;background:var(--gry)}
 .stag.set{background:var(--grn)}
@@ -132,8 +133,8 @@ select{background:var(--bg2);color:var(--fg);border:1px solid var(--line);border
           <div class="seg" id="entSeg" role="group" aria-label="Drawn maze entrance"></div>
         </div>
         <details class="tool">
-          <summary>Scoring table (editable)</summary>
-          <p style="margin-top:8px">These are the values from your scoring sheet. The clips and scoreboards read them, so if you change a number the next clip you open uses it.</p>
+          <summary>Scoring table</summary>
+          <p style="margin-top:8px">These are the values from the official scoring sheet. The clips and scoreboards use them.</p>
           <table class="stbl" id="stbl"></table>
         </details>
       </div>
@@ -202,7 +203,7 @@ const HOME=[82,457];
 const GOAL=[666,744], PINS=[[662,613],[662,735],[662,875]], PLATS=[[84,545],[84,937],[662,545],[662,937]], PLAT=PLATS[0];
 const V_AUTO=[0,-45,IW,700], V_MID=[0,215,IW,700], V_MAN=[0,380,IW,700], V_FULL=[0,-10,IW,1110];
 
-/* ---------- scoring table (editable in the page). ok = value given by the rulebook/user, the rest are drafts ---------- */
+/* ---------- scoring table (read-only on the page; change values here and rebuild). ok = value given by the rulebook/user, the rest are drafts ---------- */
 const SCORE={
   parkNoCube:{label:'Park in the Parking Zone without the cube',pts:5,ok:1},
   parkCube:{label:'Park in the Parking Zone holding the cube (replaces the +5)',pts:10,ok:1},
@@ -1329,7 +1330,7 @@ GROUPS.forEach(g=>{
     seg.appendChild(b);
   });
 })();
-/* editable scoring table */
+/* read-only scoring table */
 (function(){
   const tb=$('stbl');
   Object.keys(SCORE).forEach(k=>{
@@ -1337,9 +1338,8 @@ GROUPS.forEach(g=>{
     tr.innerHTML=`<td></td><td></td>`;
     tr.firstChild.textContent=s.label;
     const tag=document.createElement('span');tag.className='stag'+(s.ok?' set':'');tag.textContent=s.ok?'FROM SCORING SHEET':'DRAFT';tr.firstChild.appendChild(tag);
-    const inp=document.createElement('input');inp.type='number';inp.step='.5';inp.value=s.pts;inp.setAttribute('aria-label',s.label+' points');
-    inp.oninput=()=>{const v=parseFloat(inp.value);if(!isNaN(v))s.pts=v};
-    tr.lastChild.appendChild(inp);tb.appendChild(tr);
+    const val=document.createElement('b');val.className='sval';val.textContent=(s.pts>0?'+':s.pts<0?'−':'')+Math.abs(s.pts);
+    tr.lastChild.appendChild(val);tb.appendChild(tr);
   });
 })();
 /* sticky map */
@@ -1428,7 +1428,7 @@ function buildBoard(c){
     const p=document.createElement('b');p.textContent=(e.pts>0?'+':e.pts<0?'−':'')+Math.abs(e.pts);if(e.pts<0)p.className='neg';else if(e.pts===0)p.className='zero';
     r.appendChild(l);r.appendChild(p);b.appendChild(r)});
   const tot=document.createElement('div');tot.className='btotal';tot.innerHTML=c.twoSide?'<span class="sr">RED</span><b id="btotR" class="sr">0</b><span class="sb">BLUE</span><b id="btotB" class="sb">0</b>':'<span>TOTAL</span><b id="btot">0</b>';if(c.twoSide){tot.classList.add('top');b.insertBefore(tot,b.children[1])}else b.appendChild(tot);
-  if(anyDraft){const n=document.createElement('p');n.className='bnote';n.textContent='DRAFT values are placeholders. Edit them in the scoring table on the page.';b.appendChild(n)}
+  if(anyDraft){const n=document.createElement('p');n.className='bnote';n.textContent='DRAFT values are placeholders.';b.appendChild(n)}
 }
 function sample(t){
   const c=clip;

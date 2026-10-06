@@ -45,6 +45,7 @@ details.tool summary{cursor:pointer;font:700 15px var(--f-display);list-style-po
 .stbl{width:100%;border-collapse:collapse;margin-top:8px;font-size:13.5px}
 .stbl td{padding:5px 6px;border-bottom:1px solid var(--line);vertical-align:middle}
 .stbl td:last-child{text-align:right;white-space:nowrap}
+.stbl .sval{font:600 14px var(--f-mono);color:var(--fg)}
 .stbl input{width:62px;text-align:right;font:600 13px var(--f-mono);padding:3px 6px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--fg)}
 .stag{font:600 10px var(--f-mono);letter-spacing:.04em;padding:1px 6px;border-radius:99px;margin-left:6px;color:#fff;background:var(--gry)}
 .stag.set{background:var(--grn)}
@@ -132,8 +133,8 @@ select{background:var(--bg2);color:var(--fg);border:1px solid var(--line);border
           <div class="seg" id="entSeg" role="group" aria-label="Drawn maze entrance"></div>
         </div>
         <details class="tool">
-          <summary>Scoring table (editable)</summary>
-          <p style="margin-top:8px">These are the values from your scoring sheet. The clips and scoreboards read them, so if you change a number the next clip you open uses it.</p>
+          <summary>Scoring table</summary>
+          <p style="margin-top:8px">These are the values from the official scoring sheet. The clips and scoreboards use them.</p>
           <table class="stbl" id="stbl"></table>
         </details>
       </div>

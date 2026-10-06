@@ -27,7 +27,7 @@ const HOME=[82,457];
 const GOAL=[666,744], PINS=[[662,613],[662,735],[662,875]], PLATS=[[84,545],[84,937],[662,545],[662,937]], PLAT=PLATS[0];
 const V_AUTO=[0,-45,IW,700], V_MID=[0,215,IW,700], V_MAN=[0,380,IW,700], V_FULL=[0,-10,IW,1110];
 
-/* ---------- scoring table (editable in the page). ok = value given by the rulebook/user, the rest are drafts ---------- */
+/* ---------- scoring table (read-only on the page; change values here and rebuild). ok = value given by the rulebook/user, the rest are drafts ---------- */
 const SCORE={
   parkNoCube:{label:'Park in the Parking Zone without the cube',pts:5,ok:1},
   parkCube:{label:'Park in the Parking Zone holding the cube (replaces the +5)',pts:10,ok:1},

@@ -7,4 +7,4 @@ A single-page website: a rulebook index where every rule opens an animated clip 
 - `assets/field.jpg`: the field photo used as the background
 - `build.py`: rebuilds `index.html` from `src/` and `assets/`
 
-Scoring values live in the `SCORE` table in `src/p2.js` (also editable on the page).
+Scoring values live in the `SCORE` table in `src/p2.js` .

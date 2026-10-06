@@ -67,7 +67,7 @@ GROUPS.forEach(g=>{
     seg.appendChild(b);
   });
 })();
-/* editable scoring table */
+/* read-only scoring table */
 (function(){
   const tb=$('stbl');
   Object.keys(SCORE).forEach(k=>{
@@ -75,9 +75,8 @@ GROUPS.forEach(g=>{
     tr.innerHTML=`<td></td><td></td>`;
     tr.firstChild.textContent=s.label;
     const tag=document.createElement('span');tag.className='stag'+(s.ok?' set':'');tag.textContent=s.ok?'FROM SCORING SHEET':'DRAFT';tr.firstChild.appendChild(tag);
-    const inp=document.createElement('input');inp.type='number';inp.step='.5';inp.value=s.pts;inp.setAttribute('aria-label',s.label+' points');
-    inp.oninput=()=>{const v=parseFloat(inp.value);if(!isNaN(v))s.pts=v};
-    tr.lastChild.appendChild(inp);tb.appendChild(tr);
+    const val=document.createElement('b');val.className='sval';val.textContent=(s.pts>0?'+':s.pts<0?'−':'')+Math.abs(s.pts);
+    tr.lastChild.appendChild(val);tb.appendChild(tr);
   });
 })();
 /* sticky map */
@@ -166,7 +165,7 @@ function buildBoard(c){
     const p=document.createElement('b');p.textContent=(e.pts>0?'+':e.pts<0?'−':'')+Math.abs(e.pts);if(e.pts<0)p.className='neg';else if(e.pts===0)p.className='zero';
     r.appendChild(l);r.appendChild(p);b.appendChild(r)});
   const tot=document.createElement('div');tot.className='btotal';tot.innerHTML=c.twoSide?'<span class="sr">RED</span><b id="btotR" class="sr">0</b><span class="sb">BLUE</span><b id="btotB" class="sb">0</b>':'<span>TOTAL</span><b id="btot">0</b>';if(c.twoSide){tot.classList.add('top');b.insertBefore(tot,b.children[1])}else b.appendChild(tot);
-  if(anyDraft){const n=document.createElement('p');n.className='bnote';n.textContent='DRAFT values are placeholders. Edit them in the scoring table on the page.';b.appendChild(n)}
+  if(anyDraft){const n=document.createElement('p');n.className='bnote';n.textContent='DRAFT values are placeholders.';b.appendChild(n)}
 }
 function sample(t){
   const c=clip;
