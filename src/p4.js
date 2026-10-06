@@ -84,7 +84,8 @@ GROUPS.forEach(g=>{
 (function(){
   const m=$('map');const img=new Image();img.src=FIELD;img.alt='Competition field: Auto maze on top, Manual arena below';m.appendChild(img);
   const s1=START_OF('A'),s2=START_OF('B'),s3=START_OF('C');
-  [['Start1 (A)',...s1],['Start2 (B)',...s2],['Start3 (C)',...s3],['Parking Zone',338,335],['Manual start',82,457],['Cube Base',84,545],['Goalpost',666,744],['Central area',373,640]].forEach(([t,x,y])=>{
+  [['Reverse Flag',373,639,-90],['Reverse Flag',373,844,90]].forEach(([t,x,y,r])=>{const a=document.createElement('span');a.className='mflag';a.style.left=(x/IW*100)+'%';a.style.top=(y/IH*100)+'%';a.style.transform='translate(-50%,-50%) rotate('+r+'deg)';a.innerHTML='<svg viewBox="-20 -34 40 56" width="100%" height="100%"><circle r="14" fill="#2b2f36" stroke="#fff" stroke-width="2.5"/><rect x="-5" y="-4" width="10" height="22" rx="2" fill="#9b2434" stroke="#fff" stroke-width="1.5"/><path d="M0 -32 L14 -9 L-14 -9Z" fill="#fff" stroke="#111" stroke-width="1.5" stroke-linejoin="round"/></svg>';a.title=t;m.appendChild(a)});
+  [['Start1 (A)',...s1],['Start2 (B)',...s2],['Start3 (C)',...s3],['Parking Zone',338,335],['Manual start',82,457],['Cube Base',84,545],['Goalpost',666,744],['Central area',373,520]].forEach(([t,x,y])=>{
     const p=document.createElement('span');p.className='pill';p.textContent=t;p.style.left=(x/IW*100)+'%';p.style.top=(y/IH*100)+'%';if(x<110)p.style.transform='translate(0,-50%)';if(x>600)p.style.transform='translate(-100%,-50%)';m.appendChild(p)});
 })();
 

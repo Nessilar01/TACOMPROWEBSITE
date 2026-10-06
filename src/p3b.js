@@ -222,7 +222,7 @@ function manualTasks(c,t0,clock=true){
   c.score(t2+.8,'greenBall');
   c.hide('ball2',t2+1.6,.3);
   const tC=Math.max(e,t2+2);
-  e=narr(c,tC,'Task C: throw a ball at the Reversed Flag. A flag only counts when a thrown ball flips it.');
+  e=narr(c,tC,'Task C: throw a ball at the Reversed Flag and turn its tip toward the blue side. A flag only counts when a thrown ball turns it.');
   const m3=c.move('man',[[300,588]],tC,220,{turn:.2,face:90});
   c.to('man','ext',m3,m3+.7,.45);c.to('man','ext',m3+.8,m3+1.5,.15);
   const m4=c.move('man',[[300,600]],m3+1.6,200,{turn:.1,face:90});
