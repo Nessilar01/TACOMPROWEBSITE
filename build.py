@@ -11,3 +11,13 @@ if shutil.which('node'):
     open('/tmp/_chk.js', 'w', encoding='utf-8').write(js.replace('__B64__', 'x'))
     print(subprocess.run(['node', '--check', '/tmp/_chk.js'], capture_output=True, text=True))
 print('wrote index.html')
+
+# ---- 3D viewer (separate page; same clip engine + clips, three.js renderer) ----
+parts3 = ['p2.js', 'p3a.js', 'p3b.js', 'p3c.js', 'p3d.js', 'v3d.js']
+js3 = ''.join(open(f'{d}/src/{f}', encoding='utf-8').read() for f in parts3)
+html3 = open(f'{d}/src/v3d.html', encoding='utf-8').read() + '\n<script>\n' + js3 + '</script>\n'
+open(f'{d}/viewer3d.html', 'w', encoding='utf-8').write(html3.replace('__B64__', b64))
+if shutil.which('node'):
+    open('/tmp/_chk3.js', 'w', encoding='utf-8').write(js3.replace('__B64__', 'x'))
+    print(subprocess.run(['node', '--check', '/tmp/_chk3.js'], capture_output=True, text=True))
+print('wrote viewer3d.html')
