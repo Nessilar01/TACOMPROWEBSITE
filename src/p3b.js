@@ -179,11 +179,13 @@ function mkDropManual(){
 /* ---------- Manual phase: shared by the stand-alone clip and the full match ---------- */
 /* central ball platform (13 slots, 170 mm apart, y = 436 + 51k): slots 5 and 9 hold the Reverse Flags, slot 7 the large green ball */
 const B1=[372,538],B2=[372,487],B3=[372,588],F1=[373,639],F2=[373,844];
+/* a Reverse Flag is an arrow: at rest the tip points at the alliance that is about to throw, a hit turns it to the OPPONENT's side (r: -90 = red/west, +90 = blue/east) */
+function flipFlag(c,id,t,toward){c.to(id,'r',t,t+.55,toward==='B'?90:-90);c.to(id,'s',t,t+.28,1.35);c.to(id,'s',t+.28,t+.55,1)}
 function shoot(c,id,t,x,y,d=.8){c.to(id,'x',t,t+d,x);c.to(id,'y',t,t+d,y);c.to(id,'s',t,t+d/2,1.9);c.to(id,'s',t+d/2,t+d,1)}
 function manualProps(c){
   c.add('ball1','ball',{x:B1[0],y:B1[1],c:'y'});c.add('ball2','ball',{x:B2[0],y:B2[1],c:'g'});c.add('ball3','ball',{x:B3[0],y:B3[1],c:'y'});
   PINS.forEach((p,i)=>c.add('pin'+i,'pin',{x:p[0],y:p[1],c:'b'}));
-  c.add('flag','flag',{x:F1[0],y:F1[1]});
+  c.add('flag','flag',{x:F1[0],y:F1[1],r:-90});
   c.add('goal','shape',{x:GOAL[0]+4,y:GOAL[1],w:100,h:345,shape:'rect',fill:'rgba(33,105,201,.25)',stroke:'#7fb2ff',sw:3,dash:'10 6',o:0,pulse:true});
   lbl(c,'lGoal','Opposing goalpost + target pins',470,460,{tone:'info',tx:GOAL[0]-10,ty:640});
   lbl(c,'lFlag','Reverse Flag (central platform)',520,560,{tone:'dark',tx:F1[0]+18,ty:F1[1]});
@@ -228,8 +230,8 @@ function manualTasks(c,t0,clock=true){
   c.vis('lFlag',m4,m4+3.4);
   const t3=m4+.2;
   shoot(c,'ball3',t3,F1[0]-6,F1[1]+4,.6);
-  c.to('flag','r',t3+.6,t3+1.1,180);
-  c.ban(t3+.6,t3+2.4,'FLAG FLIPPED ✓','ok');
+  flipFlag(c,'flag',t3+.6,'B');
+  c.ban(t3+.6,t3+2.4,'FLAG TURNS TO BLUE ✓','ok');
   c.score(t3+.7,'flag');
   const tEnd=Math.max(e,t3+2.8);
   c.cap(Math.min(e,t3+.2),tEnd,'Every completed task adds points to the scoreboard.');

@@ -108,7 +108,9 @@ const DR={
  cube(g){E('rect',{x:-11,y:-11,width:22,height:22,rx:3,fill:'#ffd21a',stroke:'#8a6a00','stroke-width':2},g)},
  ball(g,h,a){const r=a.init.c==='g'?14:10;E('circle',{r,fill:a.init.c==='g'?'#3fcf5f':'#ffd21a',stroke:'#17331f','stroke-width':1.5},g);E('circle',{cx:-r*.3,cy:-r*.3,r:r*.28,fill:'rgba(255,255,255,.55)'},g)},
  pin(g,h,a){E('circle',{r:9,fill:a.init.c==='r'?'#d93a30':'#2169c9',stroke:'#fff','stroke-width':2},g);E('circle',{r:3,fill:'#fff'},g)},
- flag(g){E('rect',{x:-17,y:-23,width:34,height:46,rx:3,fill:'#7a1f2b',stroke:'#fff','stroke-width':2},g);E('path',{d:'M-8 -14 L8 -14 L0 -3 Z',fill:'#fff'},g);E('rect',{x:-8,y:8,width:16,height:3,fill:'#ffbebe'},g)},
+ flag(g){E('circle',{r:17,fill:'#2b2f36',stroke:'#fff','stroke-width':2.5},g);
+  E('rect',{x:-6,y:-6,width:12,height:26,rx:2,fill:'#9b2434',stroke:'#fff','stroke-width':1.5},g);
+  E('path',{d:'M0 -32 L15 -9 L-15 -9 Z',fill:'#ffffff',stroke:'#111','stroke-width':1.5,'stroke-linejoin':'round'},g);E('circle',{r:4,fill:'#ffc21a',stroke:'#111','stroke-width':1.2},g)},
  plat(g){E('rect',{x:-22,y:-22,width:44,height:44,rx:3,fill:'rgba(205,210,218,.55)',stroke:'#fff','stroke-width':1.5},g);E('rect',{x:-15.5,y:-15.5,width:31,height:31,fill:'#e8e2cf',stroke:'#5d5640','stroke-width':2},g);E('rect',{x:-13.3,y:-13.3,width:26.6,height:26.6,fill:'#f6f1e0'},g)},
  person(g){E('path',{d:'M-13 14 Q0 -6 13 14 Z',fill:'#2f6fe0',stroke:'#fff','stroke-width':1.5},g);E('circle',{cy:-7,r:8,fill:'#f3c9a1',stroke:'#222','stroke-width':1.5},g)},
  ref(g){E('path',{d:'M-13 14 Q0 -6 13 14 Z',fill:'#111',stroke:'#fff','stroke-width':1.5},g);E('path',{d:'M-6 10 L-4 2 M0 10 L0 0 M6 10 L4 2',stroke:'#fff','stroke-width':2},g);E('circle',{cy:-7,r:8,fill:'#f3c9a1',stroke:'#222','stroke-width':1.5},g)},
