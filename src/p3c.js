@@ -28,6 +28,7 @@ function mkArenaAuto(){
     {t:'Entrance 3 (C)',x:110,y:410,tone:'dark',tx:START_OF('C')[0],ty:START_OF('C')[1]+22,zone:ez('C'),cap:'Entrance 3 (C) is the bottom-left cell.'},
     {t:'One draw per round',x:520,y:410,tone:'yel',cap:'The Auto robot starts from the entrance that was drawn. The letters A, B, C name entrances, not alliances.'},
     {t:'Parking Zone',x:480,y:230,tone:'dark',tx:PARK[0]+20,ty:PARK[1],zone:{x:PARK[0],y:PARK[1],w:74,h:74},cap:'Deliver the cube to the purple Parking Zone in the bottom-right cell of your side.'},
+    {t:'Black tape',x:480,y:200,tone:'dark',tx:PARK[0]+36,ty:PARK[1]-36,cap:'A strip of black tape lies across the entrance of each Parking Zone, the only open side of the cell.'},
     {t:'Every cell: 20 × 20 cm',x:260,y:560,tone:'yel',tx:cx(0),ty:cy(2),cap:'Each block of the maze is 20 by 20 centimetres.',after:(c,ts)=>{c.to('dim','o',ts+.4,ts+.7,1)}},
     {t:'Code must handle both sides',x:520,y:560,tone:'warn',cap:'Your program has to handle both sides of the arena, because you might need to play A or B.'}
   ];
