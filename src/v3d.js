@@ -132,6 +132,11 @@ function buildActors(c){
       LAB[id]={d,ln,a};continue}
     if(a.type==='dim'||!B[a.type])continue;
     const g=B[a.type](a);actorGroup.add(g);OBJ[id]={g,a}}
+  /* every ball slot of the central platform is filled (13 slots: Y G Y Y flag Y G Y flag Y Y G Y). A slot is skipped when the clip already has its own ball there, so a ball that is thrown leaves an empty slot. */
+  const KIND='YGYYFYGYFYYGY',balls=c.order.map(i=>c.A[i]).filter(a=>a.type==='ball');
+  for(let k=0;k<13;k++){if(KIND[k]==='F')continue;const y=436+51*k;
+    if(balls.some(a=>Math.abs(a.init.x-373)<10&&Math.abs(a.init.y-y)<9))continue;
+    const a={init:{c:KIND[k]==='G'?'g':'y'}},g=B.ball(a);g.position.set(373,STRIPH+3+g.userData.r,y);actorGroup.add(g)}
 }
 /* which follow entry (carry) is active for an actor at time t */
 function carry(a,t){for(const f of a.fol)if(t>=f.t0&&t<f.t1)return f;return null}
