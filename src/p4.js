@@ -2,7 +2,7 @@
 /* ---------- rule index ---------- */
 const GROUPS=[
  {h:'Schedule and documents',r:[
-  ['doc','DOCS','Schedule: code · competition day · report','Code by 11 Nov 23:59 · compete 12 Nov · report and video 15 Nov','1','doc-schedule'],
+  ['doc','DOCS','Schedule: competition day · report and video','Compete 19 Nov · report and video 21 Nov','1','doc-schedule'],
   ['doc','DOCS','Report','Code + flowchart · drawings · theory and sample calculations · copying penalty','1','doc-report'],
   ['doc','DOCS','SUPER COOL video','1 minute, portrait 9:16, made with AI, with sound and your whole team','1','doc-video'],
   ['doc','DOCS','Code and GitHub','Public repo of the team leader · folder structure · Auto/Manual code rules','14','doc-code']]},
