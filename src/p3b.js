@@ -194,6 +194,7 @@ function manualProps(c){
 /* man must be at (300,538) facing east. Three tasks: yellow ball + pins, green ball, flag. Returns end time. */
 function manualTasks(c,t0,clock=true){
   let t=t0;
+  c.scoreRaw(t0+.2,'Reverse Flag at rest: one tip already points at your side',5);
   c.vis('lBall',t,t+3);centerMark(c,t+1,t+6,580,430);
   let e=narr(c,t,'Task A: grab a yellow ball from the central area and launch it into the opposing goalpost.');
   c.to('man','ext',t+.4,t+1.1,.45);
