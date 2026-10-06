@@ -14,9 +14,9 @@ const GROUPS=[
   ['man','MANUAL','Cube Base platform and goalpost size','Goal 1000 × 400 mm · pins 250 mm · platform 5 cm from the frame · 320 mm tall (300 stem + 15 + 5)','7–9','platform']]},
  {h:'Robots and inspection',r:[
   ['auto','AUTO','Auto robot requirements','16×16×∞ cm · sensors ≤ 5 · Yellow DC motors ≤ 2 · no ready-made kits','15','robot-auto'],
-  ['man','MANUAL','Manual robot requirements','32×32×45 cm fully extended · Manual set only · extra motors ≤ 1','15','robot-manual'],
+  ['man','MANUAL','Manual robot requirements','32×32×45 cm fully retracted · Manual set only · extra motors ≤ 1','15','robot-manual'],
   ['both','BOTH','Damaged parts and returning kits','−5 points per part · no glue, tape, cutting or drilling · return in perfect condition','15','robot-damage'],
-  ['both','BOTH','Inspection before every match','Fit the acrylic sizing box (Manual: fully extended) before each match, or fix and re-check','16','robot-inspect']]},
+  ['both','BOTH','Inspection before every match','Fit the acrylic sizing box (Manual: fully retracted) before each match, or fix and re-check','16','robot-inspect']]},
  {h:'Start entrance draw',r:[
   ['both','BOTH','One draw per round','A single random draw picks the entrance for the whole ranking round, shared by all teams · a new draw for the final','16','draw']]},
  {h:'Ranking match · Auto phase (90 s)',r:[
