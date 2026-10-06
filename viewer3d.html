@@ -882,7 +882,7 @@ function mkComponents(){
   const c=new Clip({view:V_FULL});
   c.add('dim5','dim',{x:690,y:561,x2:690,y2:574,text:'5 cm',o:0});
   const it=[
-    {t:'Objective Block (Auto)\n7 × 7 × 7 cm cube',x:480,y:200,tone:'yel',tx:PARK[0]+10,ty:PARK[1],zone:{x:PARK[0],y:PARK[1],w:74,h:74},cap:'The Auto robot’s objective block is a yellow cube, 7 centimetres on each side. Deliver it to the Parking Zone.'},
+    {t:'Objective Block (Auto)\n7 × 7 × 7 cm cube',x:480,y:200,tone:'yel',tx:START[0],ty:START[1],cap:'The Auto robot starts at its start point with the objective block on top of it: a yellow cube, 7 centimetres on each side. It delivers the block to the Parking Zone.',after:(c,ts,gap)=>{c.hide('rob',ts+gap,.4);c.hide('objCube',ts+gap,.4)}},
     {t:'Initial position marker\n(Manual) about 320 × 320 mm',x:310,y:540,tone:'dark',tx:HOME[0],ty:HOME[1],zone:{x:HOME[0],y:HOME[1],w:96,h:96},cap:'The Initial position marker is where the Manual robot starts, and where it can retract to.'},
     {t:'Cube Base platform\n10 × 10 cm top',x:430,y:660,tone:'dark',tx:PLAT[0],ty:PLAT[1]+14,zone:{x:PLATS[0][0],y:PLATS[0][1],w:46,h:46},zone2:{x:PLATS[1][0],y:PLATS[1][1],w:46,h:46},cap:'The Cube Base platform is where the Manual robot places the yellow cube to score. It is mounted beside the goalpost, 5 centimetres from the frame.',after:(c,ts,g)=>{c.to('dim5','o',ts+.6,ts+.9,1);c.to('dim5','o',ts+g-.3,ts+g,0)}},
     {t:'Goalpost (Manual)\n1000 × 400 mm',x:450,y:850,tone:'info',tx:GOAL[0]-10,ty:GOAL[1]+60,zone:{x:GOAL[0]+4,y:GOAL[1],w:100,h:345},cap:'Goalpost: to score with a ball, shoot it in here.'},
@@ -892,6 +892,7 @@ function mkComponents(){
     {t:'Central area\nballs about 170 mm apart',x:200,y:1010,tone:'dark',tx:372,ty:998,cap:'The central area is the strip down the middle. The rulebook picture puts the balls about 170 millimetres apart.'}
   ];
   addPlats(c);
+  c.add('rob','auto',{x:START[0],y:START[1],r:H0});c.add('objCube','cube',{x:START[0],y:START[1]});c.carry('objCube','rob',0,999,0,0,{rot:true});   /* the Auto robot waits at its start point with the objective block on top */
   callouts(c,it,.4);return c;
 }
 
