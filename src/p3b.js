@@ -177,7 +177,8 @@ function mkDropManual(){
 }
 
 /* ---------- Manual phase: shared by the stand-alone clip and the full match ---------- */
-const B1=[372,538],B2=[372,640],B3=[372,588],F1=[404,563];
+/* central ball platform (13 slots, 170 mm apart, y = 436 + 51k): slots 5 and 9 hold the Reverse Flags, slot 7 the large green ball */
+const B1=[372,538],B2=[372,487],B3=[372,588],F1=[373,639],F2=[373,844];
 function shoot(c,id,t,x,y,d=.8){c.to(id,'x',t,t+d,x);c.to(id,'y',t,t+d,y);c.to(id,'s',t,t+d/2,1.9);c.to(id,'s',t+d/2,t+d,1)}
 function manualProps(c){
   c.add('ball1','ball',{x:B1[0],y:B1[1],c:'y'});c.add('ball2','ball',{x:B2[0],y:B2[1],c:'g'});c.add('ball3','ball',{x:B3[0],y:B3[1],c:'y'});
@@ -185,7 +186,7 @@ function manualProps(c){
   c.add('flag','flag',{x:F1[0],y:F1[1]});
   c.add('goal','shape',{x:GOAL[0]+4,y:GOAL[1],w:100,h:345,shape:'rect',fill:'rgba(33,105,201,.25)',stroke:'#7fb2ff',sw:3,dash:'10 6',o:0,pulse:true});
   lbl(c,'lGoal','Opposing goalpost + target pins',470,460,{tone:'info',tx:GOAL[0]-10,ty:640});
-  lbl(c,'lFlag','Reversed Flag',480,520,{tone:'dark',tx:F1[0]+8,ty:F1[1]});
+  lbl(c,'lFlag','Reverse Flag (central platform)',520,560,{tone:'dark',tx:F1[0]+18,ty:F1[1]});
   lbl(c,'lBall','Balls in the central area',200,430,{tone:'yel',tx:372,ty:520});
 }
 /* man must be at (300,538) facing east. Three tasks: yellow ball + pins, green ball, flag. Returns end time. */
@@ -208,12 +209,12 @@ function manualTasks(c,t0,clock=true){
   c.hide('ball1',tl+1.8,.3);
   e=narr(c,e,'A yellow ball in the goalpost scores 2.5 points, and each pin knocked down scores 5.',tl+2.4);
   const tB=Math.max(e,tl+2.6);
-  e=narr(c,tB,'Task B: launch the larger green ball into the goalpost. It is worth 5 points.');
-  const m1=c.move('man',[[300,640]],tB,220,{turn:.2,face:90});
+  const m1=c.move('man',[[300,B2[1]]],tB,220,{turn:.2,face:90});
   c.to('man','ext',m1,m1+.7,.45);c.to('man','ext',m1+.8,m1+1.5,.15);
   const m2=c.move('man',[[300,740]],m1+1.6,200,{turn:.1,face:90});
   c.carry('ball2','man',m1+.8,m2,0,0,{arm:true});
   const t2=m2+.2;
+  e=narr(c,tB,'Task B: launch the larger green ball into the goalpost. It is worth 5 points.',t2+2);
   c.vis('goal',m2,m2+3);
   shoot(c,'ball2',t2,GOAL[0]-30,GOAL[1]+14);
   c.score(t2+.8,'greenBall');
@@ -226,7 +227,7 @@ function manualTasks(c,t0,clock=true){
   c.carry('ball3','man',m3+.8,m4,0,0,{arm:true});
   c.vis('lFlag',m4,m4+3.4);
   const t3=m4+.2;
-  shoot(c,'ball3',t3,F1[0]-8,F1[1]+8,.6);
+  shoot(c,'ball3',t3,F1[0]-6,F1[1]+4,.6);
   c.to('flag','r',t3+.6,t3+1.1,180);
   c.ban(t3+.6,t3+2.4,'FLAG FLIPPED ✓','ok');
   c.score(t3+.7,'flag');

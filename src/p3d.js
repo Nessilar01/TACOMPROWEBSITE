@@ -30,8 +30,7 @@ function mkFinal(){
   addPlats(c);
   PINS.forEach((p,i)=>c.add('pinB'+i,'pin',{x:p[0],y:p[1],c:'b'}));
   PINS.forEach((p,i)=>c.add('pinR'+i,'pin',{x:IW-p[0],y:p[1],c:'r'}));
-  const FL={Rt:[404,563],Rb:[404,FLIP-563],Bt:[IW-404,563],Bb:[IW-404,FLIP-563]};
-  Object.keys(FL).forEach(k=>c.add('f'+k,'flag',{x:FL[k][0],y:FL[k][1]}));
+  c.add('fTop','flag',{x:F1[0],y:F1[1]});c.add('fBot','flag',{x:F2[0],y:F2[1]});   /* the two Reverse Flags on the central platform */
   [['y1',533,'y'],['k1',588,'y'],['g2',995,'g'],['y2',893,'y'],['g3',487,'g'],['y3',690,'y'],['y4',945,'y']].forEach(([id,y,col])=>c.add(id,'ball',{x:372,y,c:col}));
   TS.forEach(T=>{
     T.route=ROUTE.map(([x,y])=>[T.X(x),T.Y(y)]);T.start=T.route[0];T.park=T.route[T.route.length-1];T.home=[T.X(HOME[0]),T.Y(HOME[1])];
@@ -82,7 +81,7 @@ function mkFinal(){
   c.chip('mode',Rt.tP+1.5,'MANUAL ROBOTS PLAY ON','dark');
   e=narr(c,e,'A Manual robot does not wait for the Auto phase to end. As soon as its cube is placed, it starts scoring with balls and the Reversed Flag.',tPlaced+1.5);
   c.ban(Rt.tP+1.5,Rt.tP+3.3,'NO WAITING: PLAY ON','ok');
-  const goalX=GOAL[0]-30,rGoalX=IW-goalX,fy=F=>F[1]+8;
+  const goalX=GOAL[0]-30,rGoalX=IW-goalX;
   /* red 1: yellow ball + two pins */
   let tt=Rt.tP+1.6;
   const sRt=fire(c,'mRt','y1',300,533,90,300,690,90,tt,goalX,GOAL[1]-30);
@@ -93,14 +92,14 @@ function mkFinal(){
   tt=Rb.tP+1.6;
   const sRb=fire(c,'mRb','g2',300,995,90,300,792,90,tt,goalX,GOAL[1]+30);
   c.score(sRb+.8,'greenBall',1,'Team 2 · Green ball in the goalpost','R');c.hide('g2',sRb+1.6,.3);
-  const sRb2=fire(c,'mRb','y2',300,893,90,300,905,90,sRb+2,FL.Rb[0]-8,fy(FL.Rb),.6);
-  c.to('fRb','r',sRb2+.6,sRb2+1.1,180);c.score(sRb2+.7,'flag',1,'Team 2 · Reverse flag flipped','R');
+  const sRb2=fire(c,'mRb','y2',300,893,90,300,880,90,sRb+2,F2[0]-6,F2[1]+4,.6);
+  c.to('fBot','r',sRb2+.6,sRb2+1.1,180);c.score(sRb2+.7,'flag',1,'Team 2 · Reverse flag flipped','R');
   /* blue 1: green ball, then the flag */
   tt=Bt.tP+1.6;
   const sBt=fire(c,'mBt','g3',446,487,-90,446,690,-90,tt,rGoalX,GOAL[1]-20);
   c.score(sBt+.8,'greenBall',1,'Team 1 · Green ball in the goalpost','B');c.hide('g3',sBt+1.6,.3);
-  const sBt2=fire(c,'mBt','y3',446,690,-90,446,600,-90,sBt+2,FL.Bt[0]+8,fy(FL.Bt),.6);
-  c.to('fBt','r',sBt2+.6,sBt2+1.1,180);c.score(sBt2+.7,'flag',1,'Team 1 · Reverse flag flipped','B');
+  const sBt2=fire(c,'mBt','y3',446,690,-90,446,640,-90,sBt+2,F1[0]+6,F1[1]+4,.6);
+  c.to('fTop','r',sBt2+.6,sBt2+1.1,180);c.score(sBt2+.7,'flag',1,'Team 1 · Reverse flag flipped','B');
   /* blue 2: yellow ball + one pin */
   tt=Bb.tP+1.6;
   const sBb=fire(c,'mBb','y4',446,945,-90,446,792,-90,tt,rGoalX,GOAL[1]+36);
@@ -184,3 +183,38 @@ function platHit(out){
   c.dur=narr(c,t2,'If the cube leaves the arena, the referee places it back into the autonomous robot parked in the Parking Zone.',R.tP+3.4)+.6;return c;
 }
 CLIPS['final']=mkFinal;CLIPS['plat-fall']=()=>platHit(false);CLIPS['plat-out']=()=>platHit(true);
+
+/* ---------- the central ball platform, as in the drawing (13 slots, 170 mm apart, ends 126 mm) ---------- */
+function mkCentral(){
+  const c=new Clip({view:V_MAN});
+  const SY=k=>436+51*k;                                   /* slot k (0..12) on the photo; 170 mm = 51 px */
+  const KIND=['y','g','y','y','f','y','g','y','f','y','y','g','y'];
+  c.add('strip','shape',{x:373,y:740,w:36,h:690,shape:'rect',fill:'rgba(255,255,255,.10)',stroke:'#fff',sw:3,dash:'10 6',o:0,pulse:true});
+  c.add('d0','dim',{x:318,y:397,x2:318,y2:SY(0),text:'126',o:0});
+  c.add('d1','dim',{x:318,y:SY(0),x2:318,y2:SY(1),text:'170',o:0});
+  c.add('d2','dim',{x:318,y:SY(1),x2:318,y2:SY(2),text:'170',o:0});
+  c.add('d3','dim',{x:318,y:SY(11),x2:318,y2:SY(12),text:'170',o:0});
+  c.add('d4','dim',{x:318,y:SY(12),x2:318,y2:1085,text:'126',o:0});
+  for(let k=0;k<13;k++)lbl(c,'s'+k,String(k+1),440,SY(k),{tone:KIND[k]==='g'?'ok':KIND[k]==='f'?'warn':'yel',tx:392,ty:SY(k)});
+  lbl(c,'lCross','Robots cannot cross this platform',580,470,{tone:'warn',tx:392,ty:470});
+  lbl(c,'lFl1','Reverse Flag',590,SY(4),{tone:'warn',tx:392,ty:SY(4)});
+  lbl(c,'lFl2','Reverse Flag',590,SY(8),{tone:'warn',tx:392,ty:SY(8)});
+  lbl(c,'lBig','Large green ball (centre)',600,SY(6),{tone:'ok',tx:392,ty:SY(6)});
+  let e=narr(c,0,'The central platform holds the balls for both alliances, and robots cannot cross it.');
+  c.vis('strip',.3,e+1);c.vis('lCross',.5,e);
+  c.chip('mode',0,'CENTRAL PLATFORM','dark');
+  const t1=e;
+  e=narr(c,t1,'It has thirteen ball slots, 170 millimetres apart. The first and last slots are 126 millimetres from the ends.',t1+5);
+  ['d0','d1','d2','d3','d4'].forEach((d,i)=>c.vis(d,t1+.3+i*.5,e+1));
+  for(let k=0;k<13;k++)c.vis('s'+k,t1+.2+k*.12,e+4);
+  const t2=e;
+  e=narr(c,t2,'Three large green balls sit in slots 2, 7 and 12, and small yellow balls fill the remaining slots.',t2+3);
+  const t3=e;
+  c.vis('lBig',t3-2,t3+3);
+  e=narr(c,t3,'Slots 5 and 9 hold the two Reverse Flags, on the upper layer. A flag only counts when a thrown ball flips it.',t3+3);
+  c.vis('lFl1',t3,e+1);c.vis('lFl2',t3,e+1);
+  c.add('flag','flag',{x:F1[0],y:F1[1]});c.add('flag2','flag',{x:F2[0],y:F2[1]});
+  c.to('flag','r',t3+2,t3+2.6,180);c.to('flag2','r',t3+2.4,t3+3,180);
+  c.dur=narr(c,e,'The drawing’s side view lists the heights 160, 136, 128, 130 and 80 millimetres.')+.6;return c;
+}
+CLIPS['central']=mkCentral;

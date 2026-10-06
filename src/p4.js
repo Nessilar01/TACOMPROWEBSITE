@@ -10,6 +10,7 @@ const GROUPS=[
   ['auto','AUTO','Auto arena (the maze)','Red A / Blue B · 20×20 cm cells · three entrances per side · handle both sides','2','arena-auto'],
   ['man','MANUAL','Manual arena','2443 × 2215 mm · 15 cm frame · zones A and B','2–3','arena-manual'],
   ['both','BOTH','Equipment on the field','cube · Cube Base · start marker · goalpost · balls · pins · Reversed Flag · central area','6–13','components'],
+  ['man','MANUAL','Central ball platform','13 ball slots, 170 mm apart · two Reverse Flags (slots 5 and 9) · robots cannot cross it','7–13','central'],
   ['man','MANUAL','Cube Base platform and goalpost size','Goal 1000 × 400 mm · pins 250 mm · platform 5 cm from the frame · 320 mm tall (300 stem + 15 + 5)','7–9','platform']]},
  {h:'Robots and inspection',r:[
   ['auto','AUTO','Auto robot requirements','16×16×∞ cm · sensors ≤ 5 · Yellow DC motors ≤ 2 · no ready-made kits','15','robot-auto'],
@@ -107,7 +108,7 @@ const DR={
  cube(g){E('rect',{x:-11,y:-11,width:22,height:22,rx:3,fill:'#ffd21a',stroke:'#8a6a00','stroke-width':2},g)},
  ball(g,h,a){const r=a.init.c==='g'?14:10;E('circle',{r,fill:a.init.c==='g'?'#3fcf5f':'#ffd21a',stroke:'#17331f','stroke-width':1.5},g);E('circle',{cx:-r*.3,cy:-r*.3,r:r*.28,fill:'rgba(255,255,255,.55)'},g)},
  pin(g,h,a){E('circle',{r:9,fill:a.init.c==='r'?'#d93a30':'#2169c9',stroke:'#fff','stroke-width':2},g);E('circle',{r:3,fill:'#fff'},g)},
- flag(g){E('rect',{x:-2,y:-14,width:4,height:28,fill:'#222'},g);E('rect',{x:-16,y:-14,width:16,height:12,rx:2,fill:'#7a1f2b',stroke:'#fff','stroke-width':1.5},g)},
+ flag(g){E('rect',{x:-17,y:-23,width:34,height:46,rx:3,fill:'#7a1f2b',stroke:'#fff','stroke-width':2},g);E('path',{d:'M-8 -14 L8 -14 L0 -3 Z',fill:'#fff'},g);E('rect',{x:-8,y:8,width:16,height:3,fill:'#ffbebe'},g)},
  plat(g){E('rect',{x:-22,y:-22,width:44,height:44,rx:3,fill:'rgba(205,210,218,.55)',stroke:'#fff','stroke-width':1.5},g);E('rect',{x:-15.5,y:-15.5,width:31,height:31,fill:'#e8e2cf',stroke:'#5d5640','stroke-width':2},g);E('rect',{x:-13.3,y:-13.3,width:26.6,height:26.6,fill:'#f6f1e0'},g)},
  person(g){E('path',{d:'M-13 14 Q0 -6 13 14 Z',fill:'#2f6fe0',stroke:'#fff','stroke-width':1.5},g);E('circle',{cy:-7,r:8,fill:'#f3c9a1',stroke:'#222','stroke-width':1.5},g)},
  ref(g){E('path',{d:'M-13 14 Q0 -6 13 14 Z',fill:'#111',stroke:'#fff','stroke-width':1.5},g);E('path',{d:'M-6 10 L-4 2 M0 10 L0 0 M6 10 L4 2',stroke:'#fff','stroke-width':2},g);E('circle',{cy:-7,r:8,fill:'#f3c9a1',stroke:'#222','stroke-width':1.5},g)},
