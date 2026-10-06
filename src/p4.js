@@ -18,10 +18,10 @@ const GROUPS=[
   ['both','BOTH','Damaged parts and returning kits','−5 points per part · no glue, tape, cutting or drilling · return in perfect condition','15','robot-damage'],
   ['both','BOTH','Inspection before every match','Fit the acrylic sizing box (Manual: fully retracted) before each match, or fix and re-check','16','robot-inspect']]},
  {h:'Start entrance draw',r:[
-  ['both','BOTH','One draw per round','A single random draw picks the entrance for the whole ranking round, shared by all teams · a new draw for the final','16','draw']]},
+  ['both','BOTH','Entrance draw: final match only','Ranking matches always start at Entrance 1 (A) · a random draw picks the entrance for the final','16','draw']]},
  {h:'Ranking match · Auto phase (90 s)',r:[
-  ['auto','AUTO','Start the match and drive to the Parking Zone','Team plays alone · starts at the drawn entrance holding the cube · never set it on the floor','16','auto-run'],
-  ['auto','AUTO','Cube dropped before Parking → Relaunch','Relaunch at the drawn entrance with a new cube · tell the referee · carry the robot back','16','relaunch'],
+  ['auto','AUTO','Start the match and drive to the Parking Zone','Team plays alone · starts at Entrance 1 (A) holding the cube · never set it on the floor','16','auto-run'],
+  ['auto','AUTO','Cube dropped before Parking → Relaunch','Relaunch at Entrance 1 (A) with a new cube · tell the referee · carry the robot back','16','relaunch'],
   ['auto','AUTO','Relaunch again, and repair the robot','As often as you like inside 90 s · the clock never stops · Manual stays still','16','relaunch2'],
   ['auto','AUTO','Cube dropped → keep going without it','You may park without the cube · Manual waits for the full 90 s','16–17','continue']]},
  {h:'Cube hand-off from Auto to Manual',r:[
@@ -63,8 +63,8 @@ GROUPS.forEach(g=>{
 (function(){
   const seg=$('entSeg');
   Object.keys(ENTS).forEach(k=>{
-    const b=document.createElement('button');b.textContent=`Entrance ${ENTS[k].n} (${k})`;b.setAttribute('aria-pressed',k===ENT);
-    b.onclick=()=>{setEnt(k);[...seg.children].forEach(x=>x.setAttribute('aria-pressed',x===b))};
+    const b=document.createElement('button');b.textContent=`Entrance ${ENTS[k].n} (${k})`;b.setAttribute('aria-pressed',k===FINAL_ENT);
+    b.onclick=()=>{FINAL_ENT=k;[...seg.children].forEach(x=>x.setAttribute('aria-pressed',x===b))};
     seg.appendChild(b);
   });
 })();
@@ -253,7 +253,7 @@ function play(){if(T>=clip.dur-.01)T=0;playing=true;lastTs=performance.now();las
 function pause(){playing=false;stopSpeak();ui()}
 function seek(t){stopSpeak();T=Math.max(0,Math.min(clip.dur,t));lastCap='\u0000';lastBan=-2;boardKey='';sample(T);ui()}
 function openClip(id,title,desc,btn){
-  stopSpeak();opener=btn;const c=CLIPS[id]();clip=c;
+  stopSpeak();opener=btn;setEnt(entFor(id));const c=CLIPS[id]();clip=c;
   $('mt').textContent=title;$('mr').textContent=desc;
   $('modal').classList.add('on');document.body.style.overflow='hidden';
   buildStage(c);buildBoard(c);T=0;lastCap='\u0000';lastBan=-2;$('hud').dataset.h='x';sample(0);
