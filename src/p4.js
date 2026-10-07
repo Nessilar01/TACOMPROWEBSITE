@@ -253,7 +253,7 @@ function play(){if(T>=clip.dur-.01)T=0;playing=true;lastTs=performance.now();las
 function pause(){playing=false;stopSpeak();ui()}
 function seek(t){stopSpeak();T=Math.max(0,Math.min(clip.dur,t));lastCap='\u0000';lastBan=-2;boardKey='';sample(T);ui()}
 function openClip(id,title,desc,btn){
-  stopSpeak();opener=btn;setEnt(entFor(id));const c=CLIPS[id]();clip=c;
+  stopSpeak();opener=btn;setEnt(entFor(id));const c=CLIPS[id]();autoCover(c);clip=c;
   $('mt').textContent=title;$('mr').textContent=desc;
   $('modal').classList.add('on');document.body.style.overflow='hidden';
   buildStage(c);buildBoard(c);T=0;lastCap='\u0000';lastBan=-2;$('hud').dataset.h='x';sample(0);
